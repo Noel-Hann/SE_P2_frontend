@@ -1,0 +1,18 @@
+.snowflake {
+    pointer-events: none;
+    position: absolute;
+    top: -10vh;
+    color: #ffffff;
+    font-size: 2.5rem;
+    animation: falling linear forwards infinite;
+
+}
+
+@keyframes falling {
+    from {
+        transform: translateY(-20vh);
+    }
+    to {
+        transform: translateY(100vh);
+    }
+}
