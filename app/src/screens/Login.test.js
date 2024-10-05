@@ -3,23 +3,27 @@ import { act } from 'react';
 import Login from './Login';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+jest.mock('react-alert', () => ({
+    useAlert: () => ({
+        show: jest.fn(), // Mock the show function
+    }),
+}));
+
 //source: https://www.youtube.com/watch?v=JBSUgDxICg8&t=733s
 describe(Login, () => {
 
-    it("Login displays buttons", () => {
-
+    it('Login displays buttons', () => {
         act(() => {
             render(
                 <Router>
-                    <Login handleLogin={() => {}} handleSignup={() => {}}  />
+                    <Login />
                 </Router>
             );
-        })
+        });
 
-        expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: /signup/i })).toBeInTheDocument();
-
-    })
+        expect(screen.getByRole('button', { name: "Santa Login Santa"})).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: "Santa Sign Up Santa" })).toBeInTheDocument();
+    });
 
     it('renders Login component with buttons and input fields', () => {
         act(() => {
@@ -48,7 +52,7 @@ describe(Login, () => {
             );
         })
 
-        const loginButton = screen.getByRole('button', { name: /login/i });
+        const loginButton = screen.getByRole('button', { name: "Santa Login Santa"});
 
         fireEvent.click(loginButton);
 
