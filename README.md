@@ -21,7 +21,7 @@ List of dependencies & how to install them:
 To run:
 
 - `cd app`
-- `Npm test`
+- `Npm start`
 
 
 ## Database ERD
