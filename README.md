@@ -2,6 +2,28 @@
 
 ## For backend go [here](https://github.com/Noel-Hann/SE_P2_backend)
 
+## How to run
+
+List of dependencies & how to install them: 
+
+- `npm install react-router-dom`
+
+- `npm i bootstrap@5 react-cookie@4 react-router-dom@6 reactstrap@9`
+
+- `npm install react-alert --legacy-peer-deps`
+
+ - `npm install react-alert-template-basic --legacy-peer-deps`
+
+- `npm install sweetalert2  --legacy-peer-deps`
+
+- `npm install @headlessui/react `
+
+To run:
+
+- `cd app`
+- `Npm test`
+
+
 ## Database ERD
 ![Screenshot 2024-09-27 175705](https://github.com/user-attachments/assets/8a6f5af0-611b-4628-b998-0219267d4de4)
 
