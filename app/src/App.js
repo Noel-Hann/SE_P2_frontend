@@ -10,7 +10,6 @@ import Signup from './screens/Signup';
 function App() {
     return (
         <Routes>
-
             <Route path="/" element={<Login />} />
             <Route path="/homepage" element={<Homepage />} />
             <Route path="/signup" element={<Signup />} /> 

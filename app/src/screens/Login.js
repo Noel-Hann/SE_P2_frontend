@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import '../styles/Login.css';
+import Swal from 'sweetalert2'
 
 import Snowflake from '../Snowflake';
 import santaBear from '../assets/santaBear.webp';
 import presentBox from '../assets/presentBox.webp';
 import  christmasTree from '../assets/christmasTree.webp'
+
 
 function Login() {
     const navigate = useNavigate();
@@ -17,8 +20,32 @@ function Login() {
     const handleSignup = () => {
         navigate('/signup');
     };
+
+    const success = () => {
+        Swal.fire({
+            title: "Login Sucess!",
+            text: "Now lets look at your wishlists!",
+            icon: "success"
+        });
+    };
+
+    const failure = () =>{
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please input username and password"
+        });
+    };
+
     const handleLogin = () => {
         console.log('Username and Password'); // For testing purposes
+
+        if(username === "" || password === ""){
+            failure();
+            return;
+        }
+
+        success();
         navigate('/homepage');
     };
 
