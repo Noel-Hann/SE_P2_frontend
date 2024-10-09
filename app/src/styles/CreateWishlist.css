@@ -1,0 +1,96 @@
+.dialog-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    max-width: 100%;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.dialog-panel.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.dialog-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #3b82f6;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+/* Button Styles */
+.wishlist-button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem; /* Adds space between buttons */
+}
+button {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    gap: 1rem;
+}
+
+button.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+button.btn-warning {
+    background-color: #f0ad4e;
+    color: white;
+}
+
+button.btn-warning:hover {
+    background-color: #ec971f;
+    
+}
+
+/* Space between buttons */
+.flex.space-x-4>* {
+    margin-right: 2rem;
+}
+
+.flex.space-x-4>*:last-child {
+    margin-right: 0;
+}
+.input-field {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease;
+}
