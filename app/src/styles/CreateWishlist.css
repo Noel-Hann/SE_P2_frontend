@@ -1,0 +1,82 @@
+.dialog-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    max-width: 100%;
+    background-color: white;
+    padding: 2rem; 
+    border-radius: 12px; 
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); 
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* smooth transition */
+    opacity: 0; 
+    /* border: 2px solid #0d0d0d */
+}
+
+.dialog-panel.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1); /* ensure the dialog doesn't move during animation */
+}
+
+.dialog-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333; 
+    margin-bottom: 1rem;
+    text-align: center; 
+}
+
+input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease;
+}
+
+ /* Focus color for the input */
+/* input:focus {
+    border-color: #007bff;
+    outline: none;
+} */
+
+button {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+button.btn-warning {
+    background-color: #f0ad4e;
+    color: white;
+}
+
+button.btn-warning:hover {
+    background-color: #ec971f;
+}
+
+/* Add fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}

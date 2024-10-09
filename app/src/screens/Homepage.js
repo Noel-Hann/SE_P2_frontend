@@ -1,13 +1,15 @@
-import React , { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Homepage.css';
+import CreateWishlist from './CreateWishlist';
+
 
 
 
 import Snowflake from '../Snowflake';
 import santaBear from '../assets/santaBear.webp';
 import presentBox from '../assets/presentBox.webp';
-import  christmasTree from '../assets/christmasTree.webp'
+import christmasTree from '../assets/christmasTree.webp'
 
 
 function Homepage() {
@@ -42,10 +44,26 @@ function Homepage() {
                         <img src={presentBox} alt="Present" style={{ width: '24px', height: '24px', marginRight: '8px' }} />
                         Explore Items
                     </Link>
-                    <Link to="/create" className="homepage-button btn-secondary">
+
+
+                    {/* <Link to="/create" className="homepage-button btn-secondary">
                         <img src={santaBear} alt="Santa" style={{ width: '24px', height: '24px', marginRight: '8px' }} />
                         Create Wish List
-                    </Link>
+                    </Link> */}
+
+                    {/* <CreateWishlist/> */}
+
+                    <CreateWishlist>
+                        <button className="homepage-button btn-secondary">
+                            <img src={santaBear} alt="Santa" style={{ width: '24px', height: '24px', marginRight: '8px' }} />
+                            Create Wish List
+                        </button>
+                    </CreateWishlist>
+
+
+
+
+
                     <Link to="/update" className="homepage-button btn-info">
                         📝 Update Wish List
                     </Link>
@@ -60,5 +78,4 @@ function Homepage() {
         </div>
     );
 }
-
 export default Homepage;
