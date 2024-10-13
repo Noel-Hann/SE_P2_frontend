@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React , { useState, useEffect } from 'react';
+import { Link,useNavigate, useLocation } from 'react-router-dom';
 import '../styles/Homepage.css';
 import CreateWishlist from './CreateWishlist';
 
 
-
+import Swal from 'sweetalert2';
 
 import Snowflake from '../Snowflake';
 import santaBear from '../assets/santaBear.webp';
@@ -13,7 +13,11 @@ import christmasTree from '../assets/christmasTree.webp'
 
 
 function Homepage() {
+    const navigate = useNavigate();
+
     const [snowflakes, setSnowflakes] = useState([]);
+    const location = useLocation();
+    const { user } = location.state || {};
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -28,6 +32,15 @@ function Homepage() {
         return () => clearInterval(interval);
     }, []);
 
+    if(user === {}){
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "no user logged in... signing out"
+        });
+        navigate("/login")
+    }
+
     return (
         <div className="homepage-container">
             <div className="snowflake-container">{snowflakes}</div>
@@ -40,7 +53,7 @@ function Homepage() {
                 <p className="homepage-subtitle">Make your Christmas wishlist come true!</p>
 
                 <div className="button-group">
-                    <Link to="/explore" className="homepage-button btn-primary">
+                    <Link to="/explore" state={{ user }}  className="homepage-button btn-primary">
                         <img src={presentBox} alt="Present" style={{ width: '24px', height: '24px', marginRight: '8px' }} />
                         Explore Items
                     </Link>
@@ -55,12 +68,10 @@ function Homepage() {
 
                     <CreateWishlist>
                         <button className="homepage-button btn-secondary">
-                            <img src={santaBear} alt="Santa" style={{ width: '24px', height: '24px', marginRight: '8px' }} />
+                            <img src={santaBear} alt="Santa" style={{ width: '24px', height: '24px' }} />
                             Create Wish List
                         </button>
                     </CreateWishlist>
-
-
 
 
 

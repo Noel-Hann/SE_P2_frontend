@@ -1,12 +1,12 @@
 import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+import bcrypt from 'bcryptjs';
 import '../styles/Login.css';
 
 import Snowflake from '../Snowflake';
 import santaBear from '../assets/santaBear.webp';
 import  christmasTree from '../assets/christmasTree.webp'
 import Swal from 'sweetalert2'
-
 
 function Signup() {
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ function Signup() {
     const success = () => {
         Swal.fire({
             title: "Signup Sucess!",
-            text: "Now lets go to the homepage!",
+            text: "Sign in to verify!",
             icon: "success"
         });
     };
@@ -40,7 +40,7 @@ function Signup() {
         });
     };
 
-    const handleSignup = () => {
+    const handleSignup = async () => {
         console.log('Username and Password and PasswordCheck'); // For testing purposes
 
         if(username === "" || password === ""||passwordCheck === ""){
@@ -53,9 +53,42 @@ function Signup() {
             return;
         }
 
-        success();
+        try {
+            // Hash the password using bcrypt
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password, salt); //we hash before sending to DB, backend should never see password
 
-        navigate('/homepage');
+            const response = await fetch('https://jomo-se-722e825d9259.herokuapp.com/api/user/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: hashedPassword, // Send the hashed password
+                }),
+            });
+
+            const data = await response.json(); //we gather this to show in error message
+
+            if (response.ok) {
+                success();
+                navigate('/');
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message || 'Failed to sign up!',
+                });
+            }
+        } catch (error) {
+            console.error('Error during signup:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred during signup. Please try again later or try different username.',
+            });
+        }
     };
 
     const handleReturn = () => {
