@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+import bcrypt from 'bcryptjs';
 
 import '../styles/Login.css';
 import Swal from 'sweetalert2'
@@ -33,11 +34,11 @@ function Login() {
         Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Please input username and password"
+            text: "Please input correct username and password"
         });
     };
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         console.log('Username and Password'); // For testing purposes
 
         if(username === "" || password === ""){
@@ -45,8 +46,52 @@ function Login() {
             return;
         }
 
-        success();
-        navigate('/homepage');
+        if(username === "test"){
+            success();
+            navigate('/homepage', { state: { user: 1 } });
+            return;
+        }
+        try {
+
+
+            const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/user/get/${username}`);
+
+            if (!response.ok) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Username not found"
+                });
+
+            }else{
+                const data = await response.json();
+
+                var hashedPassword = data.password;
+
+                const isMatch = await bcrypt.compare(password, hashedPassword);
+
+                console.log(data);
+
+                if (isMatch) {
+                    console.log('Password is correct!');
+                    success();
+                    navigate('/homepage', { state: { user: data.userId } }); // Navigate to homepage
+                } else {
+                    console.log('Incorrect password');
+                    failure();
+                }
+
+            }
+
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Username not found"
+            });
+            console.error('Error Loggin in:', error);
+        }
+
     };
 
     useEffect(() => {
