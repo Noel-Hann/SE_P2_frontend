@@ -17,7 +17,10 @@ function Homepage() {
 
     const [snowflakes, setSnowflakes] = useState([]);
     const location = useLocation();
-    const { user } = location.state || {};
+   const { user } = location.state || {};
+
+
+   const userKey = user || localStorage.getItem("userKey");
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -32,7 +35,7 @@ function Homepage() {
         return () => clearInterval(interval);
     }, []);
 
-    if(user === {}){
+    if(user === null){
         Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -66,7 +69,7 @@ function Homepage() {
 
                     {/* <CreateWishlist/> */}
 
-                    <CreateWishlist>
+                    <CreateWishlist userKey={userKey}>
                         <button className="homepage-button btn-secondary">
                             <img src={santaBear} alt="Santa" style={{ width: '24px', height: '24px' }} />
                             Create Wish List
