@@ -64,18 +64,20 @@ function Login() {
                 });
 
             }else{
-                const data = await response.json();
+                const data = await response.json().catch(() => null); // Catch invalid JSON
 
                 var hashedPassword = data.password;
 
                 const isMatch = await bcrypt.compare(password, hashedPassword);
 
-                console.log(data);
+                console.dir(data);
 
                 if (isMatch) {
                     console.log('Password is correct!');
                     success();
-                    navigate('/homepage', { state: { user: data.userId } }); // Navigate to homepage
+                    console.log("User ID to be passed to Homepage:", data.id);
+                    localStorage.setItem("userKey", data.id);
+                    navigate('/homepage', { state: { user: data.id } }); // Navigate to homepage
                 } else {
                     console.log('Incorrect password');
                     failure();

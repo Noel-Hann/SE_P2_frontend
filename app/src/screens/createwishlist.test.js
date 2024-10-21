@@ -3,7 +3,6 @@ import '@testing-library/jest-dom/extend-expect';
 import CreateWishlist from './CreateWishlist'; 
 import Swal from 'sweetalert2';
 
-
 jest.mock('sweetalert2', () => ({
     fire: jest.fn() 
 }));
@@ -14,7 +13,7 @@ describe('CreateWishlist component', () => {
     });
 
     test('renders CreateWishlist button and form correctly', () => {
-        render(<CreateWishlist>Create Wishlist</CreateWishlist>);
+        render(<CreateWishlist userKey="testUserKey">Create Wishlist</CreateWishlist>);
 
         // button open the dialog is rendered
         const openDialogButton = screen.getByText(/Create Wishlist/i);
@@ -30,11 +29,11 @@ describe('CreateWishlist component', () => {
     });
 
     test('shows error when Wishlist Name is empty', () => {
-        render(<CreateWishlist>Create Wishlist</CreateWishlist>);
+        render(<CreateWishlist userKey="testUserKey">Create Wishlist</CreateWishlist>);
 
         fireEvent.click(screen.getByText(/Create Wishlist/i));
 
-        // only the description and the wishlist name empty
+        // only the description is filled, wishlist name is empty
         fireEvent.change(screen.getByLabelText('Description'), { target: { value: 'Test Description' } });
 
         fireEvent.click(screen.getByText(/Save/i));
@@ -49,14 +48,13 @@ describe('CreateWishlist component', () => {
     });
 
     test('shows error when Description is empty', () => {
-        render(<CreateWishlist>Create Wishlist</CreateWishlist>);
+        render(<CreateWishlist userKey="testUserKey">Create Wishlist</CreateWishlist>);
 
         fireEvent.click(screen.getByText(/Create Wishlist/i));
 
-        // only the wishlist name and the description empty
+        // only the wishlist name is filled, description is empty
         fireEvent.change(screen.getByLabelText('Wishlist Name'), { target: { value: 'Test Wishlist' } });
 
-   
         fireEvent.click(screen.getByText(/Save/i));
 
         // error SweetAlert is called
@@ -69,7 +67,7 @@ describe('CreateWishlist component', () => {
     });
 
     test('shows success alert when both fields are filled', () => {
-        render(<CreateWishlist>Create Wishlist</CreateWishlist>);
+        render(<CreateWishlist userKey="testUserKey">Create Wishlist</CreateWishlist>);
 
         fireEvent.click(screen.getByText(/Create Wishlist/i));
 
@@ -77,7 +75,6 @@ describe('CreateWishlist component', () => {
         fireEvent.change(screen.getByLabelText('Wishlist Name'), { target: { value: 'Test Wishlist' } });
         fireEvent.change(screen.getByLabelText('Description'), { target: { value: 'Test Description' } });
 
-       
         fireEvent.click(screen.getByText(/Save/i));
 
         // success SweetAlert is called
