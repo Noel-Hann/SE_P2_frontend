@@ -17,7 +17,7 @@ function Homepage() {
 
     const [snowflakes, setSnowflakes] = useState([]);
     const location = useLocation();
-   const { user } = location.state || {};
+    const { user } = location.state || null;
 
 
    const userKey = user || localStorage.getItem("userKey");
@@ -41,7 +41,7 @@ function Homepage() {
             title: "Oops...",
             text: "no user logged in... signing out"
         });
-        navigate("/login")
+        navigate("/")
     }
 
     return (
@@ -61,27 +61,17 @@ function Homepage() {
                         Explore Items
                     </Link>
 
-
-                    {/* <Link to="/create" className="homepage-button btn-secondary">
-                        <img src={santaBear} alt="Santa" style={{ width: '24px', height: '24px', marginRight: '8px' }} />
-                        Create Wish List
-                    </Link> */}
-
-                    {/* <CreateWishlist/> */}
-
-                    <CreateWishlist userKey={userKey}>
+                    <CreateWishlist>
                         <button className="homepage-button btn-secondary">
                             <img src={santaBear} alt="Santa" style={{ width: '24px', height: '24px' }} />
                             Create Wish List
                         </button>
                     </CreateWishlist>
 
-
-
                     <Link to="/update" className="homepage-button btn-info">
                         📝 Update Wish List
                     </Link>
-                    <Link to="/friends" className="homepage-button btn-warning">
+                    <Link to="/friends" state={{ user }}  className="homepage-button btn-warning">
                         👥 Friends Wish List
                     </Link>
                     <Link to="/profile" className="homepage-button btn-success">
