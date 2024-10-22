@@ -48,6 +48,9 @@ function Login() {
 
         if(username === "test"){
             success();
+            console.log('Password is correct!');
+            console.log("User ID to be passed to Homepage:", 1);
+            localStorage.setItem("userKey", "1");
             navigate('/homepage', { state: { user: 1 } });
             return;
         }
@@ -62,7 +65,6 @@ function Login() {
                     title: "Oops...",
                     text: "Username not found"
                 });
-
             }else{
                 const data = await response.json().catch(() => null); // Catch invalid JSON
 

@@ -37,14 +37,41 @@ function Explore() {
         });
     };
 
-    const handleAddToWishlist = (item) => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Item Added',
-            text: `${item.name} has been added to your wishlist!`,
-            timer: 1000,
-            showConfirmButton: false,
-        });
+    const handleAddToWishlist = async (item) => {
+
+        try{
+            const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${user}`);
+
+            const data = await response.json();
+
+            console.log(data);
+
+            if(data[0].name === Wishlist.name){
+                const response2 = await fetch('https://jomo-se-722e825d9259.herokuapp.com/api/entry/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        wishlistNum: data[0].wishlistNum,
+                        itemId: item.id,
+                    }),
+                });
+                console.log(response2.ok); //debugging person
+            }
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Item Added',
+                text: `${item.name} has been added to your wishlist!`,
+                timer: 1000,
+                showConfirmButton: false,
+            });
+
+        }catch(error){
+            console.log(error);
+        }
+
     };
 
     const checkForUser = () =>{
