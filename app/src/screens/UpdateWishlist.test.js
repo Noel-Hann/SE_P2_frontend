@@ -49,7 +49,7 @@ describe('UpdateWishlist Component', () => {
         const saveButton = screen.getByText(/Save/i);
         fireEvent.click(saveButton);
 
-        const errorMessage = screen.getByText(/Please enter both wishlist name and description/i); // Make sure this matches your actual error message
+        const errorMessage = screen.getByText(/Please enter both wishlist name and description/i); 
         expect(errorMessage).toBeInTheDocument();
     });
 
