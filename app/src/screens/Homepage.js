@@ -1,7 +1,8 @@
-import React , { useState, useEffect } from 'react';
-import { Link,useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import '../styles/Homepage.css';
 import CreateWishlist from './CreateWishlist';
+import UpdateWishlist from './UpdateWishlist';
 
 
 import Swal from 'sweetalert2';
@@ -17,10 +18,10 @@ function Homepage() {
 
     const [snowflakes, setSnowflakes] = useState([]);
     const location = useLocation();
-   const { user } = location.state || {};
+    const { user } = location.state || {};
 
 
-   const userKey = user || localStorage.getItem("userKey");
+    const userKey = user || localStorage.getItem("userKey");
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -35,7 +36,7 @@ function Homepage() {
         return () => clearInterval(interval);
     }, []);
 
-    if(user === null){
+    if (user === null) {
         Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -56,18 +57,10 @@ function Homepage() {
                 <p className="homepage-subtitle">Make your Christmas wishlist come true!</p>
 
                 <div className="button-group">
-                    <Link to="/explore" state={{ user }}  className="homepage-button btn-primary">
+                    <Link to="/explore" state={{ user }} className="homepage-button btn-primary">
                         <img src={presentBox} alt="Present" style={{ width: '24px', height: '24px', marginRight: '8px' }} />
                         Explore Items
                     </Link>
-
-
-                    {/* <Link to="/create" className="homepage-button btn-secondary">
-                        <img src={santaBear} alt="Santa" style={{ width: '24px', height: '24px', marginRight: '8px' }} />
-                        Create Wish List
-                    </Link> */}
-
-                    {/* <CreateWishlist/> */}
 
                     <CreateWishlist userKey={userKey}>
                         <button className="homepage-button btn-secondary">
@@ -76,11 +69,10 @@ function Homepage() {
                         </button>
                     </CreateWishlist>
 
-
-
-                    <Link to="/update" className="homepage-button btn-info">
+                    <UpdateWishlist userKey={userKey} className="homepage-button btn-info">
                         📝 Update Wish List
-                    </Link>
+                    </UpdateWishlist>
+
                     <Link to="/friends" className="homepage-button btn-warning">
                         👥 Friends Wish List
                     </Link>
