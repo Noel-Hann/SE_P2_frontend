@@ -67,7 +67,7 @@ describe('UpdateWishlist Component', () => {
         const nameInput = screen.getByLabelText(/Wishlist Name/i);
         fireEvent.change(nameInput, { target: { value: 'My Wishlist' } });
 
-        const descriptionInput = screen.getByLabelText(/Description/i); // Make sure the label exactly matches your component
+        const descriptionInput = screen.getByLabelText(/Description/i);
         fireEvent.change(descriptionInput, { target: { value: 'Description of my wishlist' } });
 
         const saveButton = screen.getByText(/Save/i);
