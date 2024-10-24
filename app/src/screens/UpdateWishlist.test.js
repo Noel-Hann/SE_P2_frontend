@@ -73,7 +73,7 @@ describe('UpdateWishlist Component', () => {
         const saveButton = screen.getByText(/Save/i);
         fireEvent.click(saveButton);
 
-        // check if the wishlist name is saved and displayed correctly
+        // check if the wishlist name is saved
         const savedName = screen.getByText(/My Wishlist/i);
         expect(savedName).toBeInTheDocument();
     });

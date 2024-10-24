@@ -10,9 +10,8 @@ function UpdateWishlist({ userKey, children, className }) {
     const [wishlistName, setWishlistName] = useState('');
     const [wishlistDescription, setWishlistDescription] = useState('');
     const [loading, setLoading] = useState(true);
-    const [isOpen, setIsOpen] = useState(false); // for dialog open/close
+    const [isOpen, setIsOpen] = useState(false); 
 
-    // fetch the current wishlist details
     const fetchWishlist = async () => {
         try {
             const storedWishlistName = localStorage.getItem('wishlistName');

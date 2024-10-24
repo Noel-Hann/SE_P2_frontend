@@ -3,8 +3,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import '../styles/Homepage.css';
 import CreateWishlist from './CreateWishlist';
 import UpdateWishlist from './UpdateWishlist';
-
-
 import Swal from 'sweetalert2';
 
 import Snowflake from '../Snowflake';
@@ -15,12 +13,9 @@ import christmasTree from '../assets/christmasTree.webp'
 
 function Homepage() {
     const navigate = useNavigate();
-
     const [snowflakes, setSnowflakes] = useState([]);
     const location = useLocation();
     const { user } = location.state || {};
-
-
     const userKey = user || localStorage.getItem("userKey");
 
     useEffect(() => {
