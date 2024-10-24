@@ -9,32 +9,32 @@ function UpdateWishlist({ userKey, children, className }) {
 
     const [wishlistName, setWishlistName] = useState('');
     const [wishlistDescription, setWishlistDescription] = useState('');
+    // using wishlistNum as the identifier
+    const [wishlistNum, setWishlistNum] = useState(null); 
     const [loading, setLoading] = useState(true);
-    const [isOpen, setIsOpen] = useState(false); 
+    const [isOpen, setIsOpen] = useState(false);
 
     const fetchWishlist = async () => {
         try {
-            const storedWishlistName = localStorage.getItem('wishlistName');
-            const storedWishlistDescription = localStorage.getItem('wishlistDescription');
+            console.log("Fetching wishlist for userKey:", userKey);
+            const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${userKey}`);
+            const wishlistData = await response.json();
 
-            if (storedWishlistName && storedWishlistDescription) {
-                setWishlistName(storedWishlistName);
-                setWishlistDescription(storedWishlistDescription);
+            console.log("Wishlist data received:", wishlistData);
+
+            if (wishlistData.length > 0) {
+                const wishlist = wishlistData[0];
+                setWishlistName(wishlist.name);
+                setWishlistDescription(wishlist.description);
+                setWishlistNum(wishlist.wishlistNum); 
+                console.log("Wishlist Num:", wishlist.wishlistNum);
             } else {
-                const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${userKey}`);
-                const wishlist = await response.json();
-
-                if (wishlist.length > 0) {
-                    setWishlistName(wishlist[0].name);
-                    setWishlistDescription(wishlist[0].description);
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'No Wishlist Found',
-                        text: 'Please create a wishlist first',
-                    });
-                    navigate('/homepage');
-                }
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No Wishlist Found',
+                    text: 'Please create a wishlist first.',
+                });
+                navigate('/homepage');
             }
         } catch (error) {
             console.error('Error fetching wishlist:', error);
@@ -65,11 +65,14 @@ function UpdateWishlist({ userKey, children, className }) {
         const updatedWishlist = {
             name: wishlistName,
             description: wishlistDescription,
-            userKey: userKey,
         };
 
         try {
-            const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/update/${userKey}`, {
+            if (!wishlistNum) {
+                throw new Error("Wishlist Num not found");
+            }
+
+            const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/update/${wishlistNum}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
