@@ -3,18 +3,20 @@
 
 * {
     -webkit-font-smoothing: antialiased;
-    color: #e16969;
+    color: #5e8056;
 }
 
 :root {
     --border-radius: 10px;
 }
 
+
 body {
     margin: 0;
     padding: 0;
     height:100%;
     font-family: 'Arial', sans-serif;
+    background-color: #2d2f33;
 }
 
 .snowflake-container {
@@ -27,12 +29,17 @@ body {
 }
 
 .explore-container {
-    /*padding: 100px;*/
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #2d2f33;
+}
+
+.button-name{
+    color: #5e8056;
+    background: #CBDFBDFF;
+    margin-left: 2px;
+    border-radius: 4px;
 }
 
 .explore-card {
@@ -41,21 +48,31 @@ body {
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 75%;
-    height: 100%;
+    width: 55%;
+    height: auto;
+
 }
 
 .explore-header {
     font-size: 32px;
+    font-family: New Century Schoolbook, TeX Gyre Schola, serif;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #fa5c67;
+    color: #5e8056;
 }
 
-.explore-subtitle {
-    font-size: 18px;
+.friend-subtitle {
+    font-size: 23px;
+    font-family: Times New Roman, cursive;
     color: #2d6a4f;
-    margin-bottom: 20px;
+    margin-top: 5px;
+}
+.friend-description {
+    font-size: 18px;
+    font-family: Arial, serif;
+    color: #2d6a4f;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .center-container {
@@ -65,17 +82,51 @@ body {
 
 }
 
+.description-imageL {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    padding-right: 3px;
+}
+
+.description-imageR {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    padding-left: 4px;
+}
+
+.description-container{
+    margin-top: 10px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.description-card {
+    display: flex;
+    padding: 1px;
+
+    border-radius: var(--border-radius);
+    background: linear-gradient(-67deg, rgb(217, 246, 210), rgb(203, 223, 189));
+    overflow: hidden;
+    box-shadow: -2px -2px 6px rgba(255, 255, 255, 0.6), 2px 2px 12px #c8d8e7;
+    width: 380px;
+}
+
 .search-card {
     padding: 1px;
     border-radius: var(--border-radius);
-    background: linear-gradient(-67deg, rgba(231, 200, 200, 0.7), rgba(255, 255, 255, 0.8));
+    background: linear-gradient(-67deg, rgb(217, 246, 210), rgb(203, 223, 189));
     overflow: hidden;
     box-shadow: -2px -2px 6px rgba(255, 255, 255, 0.6), 2px 2px 12px #c8d8e7;
     width: 380px;
 }
 .search-innerCard {
     padding: 16px 16px;
-    background-color: #f4e2e2;
+    background-color: #d9f6d2;
     border-radius: var(--border-radius);
 }
 .search-container {
@@ -107,12 +158,12 @@ label {
     width: 100%;
 }
 input {
-    background-color: #f7e3e3;
+    background-color: #bce1b2;
     border: none;
     display: block;
     font-family: "Orbitron", sans-serif;
     font-weight: 600;
-    color: #c9a9a9;
+    color: #5e8056;
     -webkit-appearance: none;
     transition: all 240ms ease-out;
     width: 100%;
@@ -126,7 +177,7 @@ input:focus {
     background-color: #faefef;
 }
 .InputContainer {
-    --top-shadow: inset 1px 1px 3px #e3c5c5, inset 2px 2px 6px #e3c5c5;
+    --top-shadow: inset 1px 1px 3px #86a47f, inset 2px 2px 6px #63815c;
     --bottom-shadow: inset -2px -2px 4px rgba(255, 255, 255, 0.7);
     position: relative;
     border-radius: var(--border-radius);
@@ -147,4 +198,61 @@ input:focus {
 }
 .InputContainer:after {
     box-shadow: var(--top-shadow);
+}
+
+.item-card-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-rows: repeat(2, auto);
+    gap: 20px;
+    padding: 20px;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.item-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.item-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 10px 0;
+    color: #333;
+}
+
+.item-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2e8b57;
+    margin: 5px 0;
+}
+
+.item-description {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 10px 0;
+    height: 50px;
+    overflow: hidden;
 }

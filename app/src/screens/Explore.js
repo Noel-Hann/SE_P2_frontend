@@ -22,7 +22,8 @@ function Explore() {
         ["food", "https://cdn3.iconfinder.com/data/icons/christmas-food-and-drink-filled/64/christmas_food-38-512.png"],
         ["toys", "https://cdn-icons-png.flaticon.com/512/2242/2242585.png"],
         ["jewelry", "https://cdn-icons-png.flaticon.com/512/3851/3851092.png"],
-        ["home", "https://cdn3.iconfinder.com/data/icons/colorline-christmas/64/christmas_winter_home_house_icon-512.png"]
+        ["home", "https://cdn3.iconfinder.com/data/icons/colorline-christmas/64/christmas_winter_home_house_icon-512.png"],
+        ["pets", "https://cdn-icons-png.flaticon.com/512/3826/3826862.png"]
     ]);
 
     const showitemDescription = (item) => {
@@ -113,7 +114,7 @@ function Explore() {
 
                 const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${user}`);
 
-                if(response.ok){
+                if(response.ok && response.length > 0 ){
                     const data = await response.json();
 
                     console.log(response);

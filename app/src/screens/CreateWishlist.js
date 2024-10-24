@@ -6,7 +6,7 @@ import '../styles/CreateWishlist.css';
 
 function CreateWishlist({ children, userKey, onWishlistCreated }) {
     const [isOpen, setIsOpen] = useState(false);
-    // track the input for wishlist name and description
+
     const [wishlistName, setWishlistName] = useState("");
     const [wishlistDescription, setWishlistDescription] = useState("");
 

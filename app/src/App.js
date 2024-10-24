@@ -8,6 +8,7 @@ import Homepage from './screens/Homepage';
 import Signup from './screens/Signup';
 import Explore from './screens/Explore';
 import Friends from './screens/Friends'
+import UpdateWishlist from './screens/UpdateWishlist';
 
 function App() {
     return (
@@ -17,6 +18,8 @@ function App() {
             <Route path="/explore" element={<Explore />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/friends" element={<Friends />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/update" element={<UpdateWishlist />} />
         </Routes>
     );
 }

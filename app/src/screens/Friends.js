@@ -13,13 +13,15 @@ const icons = new Map([
     ["food", "https://cdn3.iconfinder.com/data/icons/christmas-food-and-drink-filled/64/christmas_food-38-512.png"],
     ["toys", "https://cdn-icons-png.flaticon.com/512/2242/2242585.png"],
     ["jewelry", "https://cdn-icons-png.flaticon.com/512/3851/3851092.png"],
-    ["home", "https://cdn3.iconfinder.com/data/icons/colorline-christmas/64/christmas_winter_home_house_icon-512.png"]
+    ["home", "https://cdn3.iconfinder.com/data/icons/colorline-christmas/64/christmas_winter_home_house_icon-512.png"],
+    ["pets", "https://cdn-icons-png.flaticon.com/512/3826/3826862.png"]
 ]);
 
 function Friends() {
     const navigate = useNavigate();
     const [snowflakes, setSnowflakes] = useState([]);
     const [items, setitems] = useState([]);
+    const [friendWishlist, setFriendWishlist] = useState([]);
     const [searchFriend, setSearchFriend] = useState('');
     const searchFriendRef = useRef(null);
 
@@ -80,6 +82,35 @@ function Friends() {
                     setitems([]);
                     return;
                 }
+
+                try{
+                    const response3 = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${friendUser.id}`);
+
+                    var friendWishlist = await response3.json();
+
+                    if(!response3.ok || friendWishlist.length<=0){
+                        Swal.fire({
+                            icon: "error",
+                            title: "Fail",
+                            text: "Friend does not have a wishlist!"
+                        });
+                        setFriendWishlist({name:"no friend selected", description:" null"});
+                        setitems([]);
+                        return;
+                    }
+                    setFriendWishlist(friendWishlist[0]);
+
+                }catch(error){
+                    Swal.fire({
+                        icon: "error",
+                        title: "Fail",
+                        text: "Friend does not have a wishlist2!"
+                    });
+                    setFriendWishlist({name:"no friend selected", description:" null"});
+                    setitems([]);
+                    return;
+                }
+
                 try {
 
                     const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/entry/get-all/${friendUser.id}`);
@@ -92,8 +123,9 @@ function Friends() {
                         Swal.fire({
                             icon: "error",
                             title: "Fail",
-                            text: "Friend does not have a wishlist!"
+                            text: "Friends wishlist is empty!"
                         });
+                        setFriendWishlist({name:"no friend selected", description:" null"});
                         setitems([]);
                         return;
                     }
@@ -113,9 +145,10 @@ function Friends() {
                     Swal.fire({
                         icon: "error",
                         title: "Fail",
-                        text: "Friend does not have a wishlist!"
+                        text: "Error getting friends wishlist, try again!"
                     });
                     setitems([]);
+                    setFriendWishlist({name:"no friend selected", description:" null"});
                     console.error('Error fetching items:', error);
                 }
             }else{
@@ -149,19 +182,24 @@ function Friends() {
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 23 23" fill="none" stroke="#657789" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                                 </div>
                                 <div className="InputContainer">
-                                    <input ref={searchFriendRef} placeholder="Search"/>
+                                    <input ref={searchFriendRef} placeholder="Search by Username"/>
                                 </div>
-                                <button onClick={handleSearchChange}> Search </button>
+                                <button className="button-name" onClick={handleSearchChange}> Search</button>
 
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <div className = "friend-subtitle">
+                    Wishlist Title: {friendWishlist.name}
+                </div>
+
                 <div className="item-card-container">
                     {items.map((item) => (
                         <div key={item.id} className="item-card">
                             <h2 className="item-title">{item.name}</h2>
+                            <img className="item-image" src= {icons.get(item.type)} alt={"no img"}/>
                             <p className="item-price">${item.price}</p>
                             <p
                                 className="item-description-link"
@@ -171,7 +209,18 @@ function Friends() {
                             </p>
                         </div>
                     ))}
+
                 </div>
+
+                <div className="description-container">
+                    <img className="description-imageL"  src="https://cdn.creazilla.com/icons/7912022/christmas-icon-md.png"/>
+                    <div className="description-card ">
+                        <h1 className="friend-description">Description: {friendWishlist.description}</h1>
+                    </div>
+                    <img className="description-imageR"  src="https://cdn.creazilla.com/icons/7912022/christmas-icon-md.png"/>
+
+                </div>
+
 
 
             </div>
