@@ -29,11 +29,6 @@ function UpdateWishlist({ userKey, children, className }) {
                 setWishlistNum(wishlist.wishlistNum); 
                 console.log("Wishlist Num:", wishlist.wishlistNum);
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'No Wishlist Found',
-                    text: 'Please create a wishlist first.',
-                });
                 navigate('/homepage');
             }
         } catch (error) {
