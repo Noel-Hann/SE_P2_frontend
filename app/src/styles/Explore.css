@@ -40,6 +40,14 @@ body {
   color: #e63746;
 }
 
+.user-image {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .explore-subtitle {
   font-size: 18px;
   color: #2d6a4f;

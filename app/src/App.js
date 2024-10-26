@@ -9,6 +9,7 @@ import Signup from './screens/Signup';
 import Explore from './screens/Explore';
 import Friends from './screens/Friends'
 import UpdateWishlist from './screens/UpdateWishlist';
+import Admin from './screens/Admin';
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/friends" element={<Friends />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/update" element={<UpdateWishlist />} />
+            <Route path="/admin" element={<Admin />} />
         </Routes>
     );
 }

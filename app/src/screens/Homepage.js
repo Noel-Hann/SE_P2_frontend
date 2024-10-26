@@ -15,8 +15,8 @@ function Homepage() {
     const navigate = useNavigate();
     const [snowflakes, setSnowflakes] = useState([]);
     const location = useLocation();
-    const { user } = location.state || {};
-    const userKey = user || localStorage.getItem("userKey");
+    const { userID, user } = location.state || {};
+    const userKey = userID || localStorage.getItem("userKey");
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -31,7 +31,7 @@ function Homepage() {
         return () => clearInterval(interval);
     }, []);
 
-    if (user === null) {
+    if (userID === null) {
         Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -39,6 +39,20 @@ function Homepage() {
         });
         navigate("/")
     }
+
+    const handleAdmin = () => {
+
+        if (user && user.isAdmin) {
+
+            navigate('/admin', { state: { user } });
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "YOU SHALL NOT PASS",
+                text: "You are not an Admin"
+        });
+        }
+    };
 
     return (
         <div className="homepage-container">
@@ -52,7 +66,7 @@ function Homepage() {
                 <p className="homepage-subtitle">Make your Christmas wishlist come true!</p>
 
                 <div className="button-group">
-                    <Link to="/explore" state={ {user} } className="homepage-button btn-primary">
+                    <Link to="/explore" state={ {userID} } className="homepage-button btn-primary">
                         <img src={presentBox} alt="Present" style={{ width: '24px', height: '24px', marginRight: '8px' }} />
                         Explore Items
                     </Link>
@@ -67,12 +81,13 @@ function Homepage() {
                     <UpdateWishlist userKey={userKey} className="homepage-button btn-info">
                         📝 Update Wish List
                     </UpdateWishlist>
-                    <Link to="/friends" state={{ user }}  className="homepage-button btn-warning">
+                    <Link to="/friends" state={{ userID }}  className="homepage-button btn-warning">
                         👥 Friends Wish List
                     </Link>
-                    {/*<Link to="/profile" className="homepage-button btn-success">*/}
-                    {/*    ✏️ Update Profile*/}
-                    {/*</Link>*/}
+
+                    <button onClick={handleAdmin} className="homepage-button btn-success">
+                        ✏️ View/Delete Users
+                    </button>
                 </div>
             </div>
         </div>
