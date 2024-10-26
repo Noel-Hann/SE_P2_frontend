@@ -6,30 +6,31 @@ import '../styles/CreateWishlist.css';
 
 function UpdateWishlist({ userKey, children, className }) {
     const navigate = useNavigate();
-
     const [wishlistName, setWishlistName] = useState('');
     const [wishlistDescription, setWishlistDescription] = useState('');
-    // using wishlistNum as the identifier
     const [wishlistNum, setWishlistNum] = useState(null); 
     const [loading, setLoading] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
 
+    // fetches the user's wishlist based on userKey
     const fetchWishlist = async () => {
         try {
             console.log("Fetching wishlist for userKey:", userKey);
             const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${userKey}`);
             const wishlistData = await response.json();
 
-            console.log("Wishlist data received:", wishlistData);
+            console.log("Wishlist data received:", wishlistData); //test
 
+             // load the wishlist details into state if found
             if (wishlistData.length > 0) {
                 const wishlist = wishlistData[0];
                 setWishlistName(wishlist.name);
                 setWishlistDescription(wishlist.description);
                 setWishlistNum(wishlist.wishlistNum);
-                console.log("User ID:", userKey);
-                console.log("Wishlist Num:", wishlist.wishlistNum);
+                console.log("User ID:", userKey); //test
+                console.log("Wishlist Num:", wishlist.wishlistNum); //test
             } else {
+                //if no wishlist is found, redirecting to homepage
                 navigate('/homepage');
             }
         } catch (error) {
@@ -43,7 +44,7 @@ function UpdateWishlist({ userKey, children, className }) {
             setLoading(false);
         }
     };
-
+    // runs fetchWishlist when component mounts
     useEffect(() => {
         fetchWishlist();
     }, [userKey]);
@@ -67,7 +68,7 @@ function UpdateWishlist({ userKey, children, className }) {
             if (!wishlistNum) {
                 throw new Error("Wishlist Num not found");
             }
-
+            // send the updated wishlist data to the server
             const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/update/${wishlistNum}`, {
                 method: 'PUT',
                 headers: {
@@ -82,7 +83,7 @@ function UpdateWishlist({ userKey, children, className }) {
                     title: 'Wishlist Updated!',
                     text: 'Your wishlist has been successfully updated.',
                 });
-
+                // Update local storage with new wishlist details
                 localStorage.setItem('wishlistName', wishlistName);
                 localStorage.setItem('wishlistDescription', wishlistDescription);
 
