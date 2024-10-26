@@ -146,13 +146,16 @@ function Signup() {
                        onChange={(e) => setPasswordCheck(e.target.value)}
                 />
 
-                <input
-                    name="admin"
-                    type="checkbox"
-                    className="login-input"
-                    checked={isAdmin}
-                    onChange={(e) => setIsAdmin(e.target.checked)}
-                />
+                <label style={{ display: 'flex', alignItems: 'center' }}>
+                    <span >Want to be an Admin?</span>
+                    <input
+                        name="admin"
+                        type="checkbox"
+                        className="login-check"
+                        checked={isAdmin}
+                        onChange={(e) => setIsAdmin(e.target.checked)}
+                    />
+                </label>
 
                 <button name="signup" onClick={handleSignup} className="login-button">
 
