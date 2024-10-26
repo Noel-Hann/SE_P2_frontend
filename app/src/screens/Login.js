@@ -51,7 +51,7 @@ function Login() {
             console.log('Password is correct!');
             console.log("User ID to be passed to Homepage:", 1);
             localStorage.setItem("userKey", "6");
-            navigate('/homepage', { state: { userID: 6, user:{isAdmin:true}} });
+            navigate('/homepage', { state: { userID: 6, user:{id:6,isAdmin:true, password: "test", username:"test"}, unHashed: "test"} });
             return;
         }
 
@@ -80,7 +80,8 @@ function Login() {
                     success();
                     console.log("User ID to be passed to Homepage:", data.id);
                     localStorage.setItem("userKey", data.id);
-                    navigate('/homepage', { state: { userID: data.id, user: data} }); // Navigate to homepage
+                    console.log("password: ", password);
+                    navigate('/homepage', { state: { userID: data.id, user: data, unHashed:password} }); // Navigate to homepage
                 } else {
                     console.log('Incorrect password');
                     failure();

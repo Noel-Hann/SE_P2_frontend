@@ -61,11 +61,23 @@ body {
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: #ef233c;
 }
 
 .btn-secondary {
-  background-color: #6f42c1;
+  background-color: #f19c79;
+}
+
+.btn-ternary {
+  background-color: #73ba9b;
+}
+
+.btn-quartary {
+  background-color: #003e1f;
+}
+
+.btn-quinary {
+  background-color: #d90429;
 }
 
 .btn-info {
@@ -83,4 +95,12 @@ body {
 .homepage-button:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.profile-description-link {
+  color: #007bff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s;
 }

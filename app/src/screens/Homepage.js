@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import '../styles/Homepage.css';
 import CreateWishlist from './CreateWishlist';
 import UpdateWishlist from './UpdateWishlist';
+import UpdateUser from "./updateUser";
 import Swal from 'sweetalert2';
 
 import Snowflake from '../Snowflake';
@@ -11,11 +12,12 @@ import presentBox from '../assets/presentBox.webp';
 import christmasTree from '../assets/christmasTree.webp'
 
 
+
 function Homepage() {
     const navigate = useNavigate();
     const [snowflakes, setSnowflakes] = useState([]);
     const location = useLocation();
-    const { userID, user } = location.state || {};
+    const { userID, user, unHashed} = location.state || {};
     const userKey = userID || localStorage.getItem("userKey");
 
     useEffect(() => {
@@ -81,13 +83,23 @@ function Homepage() {
                     <UpdateWishlist userKey={userKey} className="homepage-button btn-info">
                         📝 Update Wish List
                     </UpdateWishlist>
-                    <Link to="/friends" state={{ userID }}  className="homepage-button btn-warning">
-                        👥 Friends Wish List
+
+                    <Link to="/friends" state={{ userID }}  className="homepage-button btn-quartary">
+                        <img src="https://www.drawhipo.com/wp-content/uploads/2023/04/Christmas-Color-7-Santa-Claus-Curved.png" alt="Present" style={{ width: '24px', height: '24px', marginRight: '8px' }} />
+                        Friends Wish List
                     </Link>
 
-                    <button onClick={handleAdmin} className="homepage-button btn-success">
-                        ✏️ View/Delete Users
+                    <button onClick={handleAdmin} className="homepage-button btn-quinary">
+                        <img src="https://cdn-icons-png.flaticon.com/512/9112/9112394.png" alt="Santa" style={{ width: '24px', height: '24px' }} />
+                        View/Delete Users
                     </button>
+
+                    <UpdateUser userKey={userKey} user = {user} unHashedPassword={unHashed}>
+                        <div className="profile-description-link">
+                            View/Update Profile...
+                        </div>
+
+                    </UpdateUser>
                 </div>
             </div>
         </div>

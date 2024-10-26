@@ -14,6 +14,7 @@ function Signup() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordCheck, setPasswordCheck] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
     const [snowflakes, setSnowflakes] = useState([]);
 
     const success = () => {
@@ -65,6 +66,7 @@ function Signup() {
                 body: JSON.stringify({
                     username: username,
                     password: hashedPassword, // Send the hashed password
+                    isAdmin: isAdmin
                 }),
             });
 
@@ -142,6 +144,14 @@ function Signup() {
                        placeholder="Input Password Again"
                        value={passwordCheck}
                        onChange={(e) => setPasswordCheck(e.target.value)}
+                />
+
+                <input
+                    name="admin"
+                    type="checkbox"
+                    className="login-input"
+                    checked={isAdmin}
+                    onChange={(e) => setIsAdmin(e.target.checked)}
                 />
 
                 <button name="signup" onClick={handleSignup} className="login-button">
