@@ -15,6 +15,7 @@ function Explore() {
 
     const location = useLocation();
     const { user } = location.state || {};
+    const userKey = user || localStorage.getItem("userKey");
 
     const icons = new Map([
         ["electronics", "https://cdn-icons-png.flaticon.com/512/13114/13114437.png"],
@@ -41,7 +42,7 @@ function Explore() {
     const handleAddToWishlist = async (item) => {
 
         try{
-            const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${user}`);
+            const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${userKey}`);
 
             const data = await response.json();
 
@@ -59,6 +60,7 @@ function Explore() {
                     }),
                 });
                 console.log(response2.ok); //debugging person
+                console.log(data[0].wishlistNum);
             }
 
             Swal.fire({
@@ -76,7 +78,7 @@ function Explore() {
     };
 
     const checkForUser = () =>{
-        if(user === {}){
+        if(userKey === {} || userKey === undefined){
             Swal.fire({
                 icon: 'error',
                 title: 'No user Found',
@@ -86,11 +88,11 @@ function Explore() {
             });
             navigate('/');
         }
-
     };
 
     useEffect(() => {
         const fetchItems = async () => {
+
             try {
 
                 const response = await fetch('https://jomo-se-722e825d9259.herokuapp.com/api/item/get-all');
@@ -110,22 +112,27 @@ function Explore() {
     useEffect(() => {
         checkForUser();
         const fetchWishlist = async () => {
+            console.log("geff");
+            console.log(userKey);
             try {
 
-                const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${user}`);
+                const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${userKey}`);
 
-                if(response.ok && response.length > 0 ){
-                    const data = await response.json();
+                var data = null;
+                if(response.ok){
+                    data = await response.json();
+                }
 
-                    console.log(response);
-
+                console.log("data: ", data);
+                if(data != null  && data.length > 0){
                     setWishlist(data[0]);
                 }else{
+                    // console.log("hererere: ",response);
                     Swal.fire({
                         icon: 'error',
                         title: 'No Wishlist Found',
                         text: `Please create wishlist`,
-                        timer: 1500,
+                        timer: 2000,
                         showConfirmButton: false,
                     });
                     navigate('/homepage', { state: { user: user} });

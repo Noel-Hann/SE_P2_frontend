@@ -83,10 +83,11 @@ function Friends() {
                     return;
                 }
 
+                var friendWishlist;
                 try{
                     const response3 = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${friendUser.id}`);
 
-                    var friendWishlist = await response3.json();
+                    friendWishlist = await response3.json();
 
                     if(!response3.ok || friendWishlist.length<=0){
                         Swal.fire({
@@ -113,11 +114,12 @@ function Friends() {
 
                 try {
 
-                    const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/entry/get-all/${friendUser.id}`);
+                    const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/entry/get-all/${friendWishlist[0].wishlistNum}`);
 
                     const data = await response.json();
 
-                    console.log(data);
+                    console.log("" +
+                        ":",data);
 
                     if (data.length<=0 || !response.ok){
                         Swal.fire({
@@ -125,7 +127,7 @@ function Friends() {
                             title: "Fail",
                             text: "Friends wishlist is empty!"
                         });
-                        setFriendWishlist({name:"no friend selected", description:" null"});
+                        // setFriendWishlist({name:"no friend selected", description:" null"});
                         setitems([]);
                         return;
                     }
@@ -182,7 +184,7 @@ function Friends() {
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 23 23" fill="none" stroke="#657789" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                                 </div>
                                 <div className="InputContainer">
-                                    <input ref={searchFriendRef} placeholder="Search by Username"/>
+                                    <input className="input-search" ref={searchFriendRef} placeholder="Search by Username"/>
                                 </div>
                                 <button className="button-name" onClick={handleSearchChange}> Search</button>
 
@@ -195,7 +197,7 @@ function Friends() {
                     Wishlist Title: {friendWishlist.name}
                 </div>
 
-                <div className="item-card-container">
+                <div className="item-card-container-friends">
                     {items.map((item) => (
                         <div key={item.id} className="item-card">
                             <h2 className="item-title">{item.name}</h2>

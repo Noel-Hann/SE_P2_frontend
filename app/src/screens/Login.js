@@ -50,8 +50,8 @@ function Login() {
             success();
             console.log('Password is correct!');
             console.log("User ID to be passed to Homepage:", 1);
-            localStorage.setItem("userKey", "1");
-            navigate('/homepage', { state: { user: 1 } });
+            localStorage.setItem("userKey", "6");
+            navigate('/homepage', { state: { user: 6 } });
             return;
         }
         try {
