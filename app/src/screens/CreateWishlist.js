@@ -62,7 +62,7 @@ function CreateWishlist({ children, userKey, onWishlistCreated }) {
             return;
         }
 
-
+        
         //wishlist item object to send to the API
         const wishlistItem = {
             name: wishlistName,
@@ -72,6 +72,7 @@ function CreateWishlist({ children, userKey, onWishlistCreated }) {
 
         console.log(wishlistItem.userKey); //test
 
+        //making an API call to add a new wishlist
         try {
             const response = await fetch('https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/add', {
                 method: 'POST',
@@ -113,7 +114,7 @@ function CreateWishlist({ children, userKey, onWishlistCreated }) {
                 });
             }
         } catch (error) {
-            // Add: Handle unexpected errors, like network issues
+            // Handle unexpected errors, like network issues
             console.error("Error creating wishlist:", error);
             Swal.fire({
                 title: "Error",
