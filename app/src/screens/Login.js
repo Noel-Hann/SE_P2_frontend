@@ -51,9 +51,10 @@ function Login() {
             console.log('Password is correct!');
             console.log("User ID to be passed to Homepage:", 1);
             localStorage.setItem("userKey", "6");
-            navigate('/homepage', { state: { user: 6 } });
+            navigate('/homepage', { state: { userID: 6, user:{isAdmin:true}} });
             return;
         }
+
         try {
 
 
@@ -79,7 +80,7 @@ function Login() {
                     success();
                     console.log("User ID to be passed to Homepage:", data.id);
                     localStorage.setItem("userKey", data.id);
-                    navigate('/homepage', { state: { user: data.id } }); // Navigate to homepage
+                    navigate('/homepage', { state: { userID: data.id, user: data} }); // Navigate to homepage
                 } else {
                     console.log('Incorrect password');
                     failure();
