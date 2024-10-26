@@ -47,7 +47,6 @@ function Signup() {
             failureFields();
             return;
         }
-
         if(password !== passwordCheck){
             failurePassword()
             return;

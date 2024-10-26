@@ -30,7 +30,7 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 75%;
-  height: 85%;
+  height: 100vh;
 }
 
 .explore-header {
@@ -51,7 +51,7 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
-  max-height: 400px; /* Set a max height to enable scrolling */
+  max-height: 500px; /* Set a max height to enable scrolling */
   overflow-y: auto; /* Enable vertical scrolling */
 }
 

@@ -37,7 +37,7 @@ function Homepage() {
             title: "Oops...",
             text: "no user logged in... signing out"
         });
-        navigate("/login")
+        navigate("/")
     }
 
     return (
@@ -52,7 +52,7 @@ function Homepage() {
                 <p className="homepage-subtitle">Make your Christmas wishlist come true!</p>
 
                 <div className="button-group">
-                    <Link to="/explore" state={{ user }} className="homepage-button btn-primary">
+                    <Link to="/explore" state={ {user} } className="homepage-button btn-primary">
                         <img src={presentBox} alt="Present" style={{ width: '24px', height: '24px', marginRight: '8px' }} />
                         Explore Items
                     </Link>
@@ -67,13 +67,12 @@ function Homepage() {
                     <UpdateWishlist userKey={userKey} className="homepage-button btn-info">
                         📝 Update Wish List
                     </UpdateWishlist>
-
-                    <Link to="/friends" className="homepage-button btn-warning">
+                    <Link to="/friends" state={{ user }}  className="homepage-button btn-warning">
                         👥 Friends Wish List
                     </Link>
-                    <Link to="/profile" className="homepage-button btn-success">
-                        ✏️ Update Profile
-                    </Link>
+                    {/*<Link to="/profile" className="homepage-button btn-success">*/}
+                    {/*    ✏️ Update Profile*/}
+                    {/*</Link>*/}
                 </div>
             </div>
         </div>

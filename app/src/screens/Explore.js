@@ -15,6 +15,7 @@ function Explore() {
 
     const location = useLocation();
     const { user } = location.state || {};
+    const userKey = user || localStorage.getItem("userKey");
 
     const icons = new Map([
         ["electronics", "https://cdn-icons-png.flaticon.com/512/13114/13114437.png"],
@@ -22,7 +23,8 @@ function Explore() {
         ["food", "https://cdn3.iconfinder.com/data/icons/christmas-food-and-drink-filled/64/christmas_food-38-512.png"],
         ["toys", "https://cdn-icons-png.flaticon.com/512/2242/2242585.png"],
         ["jewelry", "https://cdn-icons-png.flaticon.com/512/3851/3851092.png"],
-        ["home", "https://cdn3.iconfinder.com/data/icons/colorline-christmas/64/christmas_winter_home_house_icon-512.png"]
+        ["home", "https://cdn3.iconfinder.com/data/icons/colorline-christmas/64/christmas_winter_home_house_icon-512.png"],
+        ["pets", "https://cdn-icons-png.flaticon.com/512/3826/3826862.png"]
     ]);
 
     const showitemDescription = (item) => {
@@ -37,18 +39,46 @@ function Explore() {
         });
     };
 
-    const handleAddToWishlist = (item) => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Item Added',
-            text: `${item.name} has been added to your wishlist!`,
-            timer: 1000,
-            showConfirmButton: false,
-        });
+    const handleAddToWishlist = async (item) => {
+
+        try{
+            const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${userKey}`);
+
+            const data = await response.json();
+
+            console.log(data);
+
+            if(data[0].name === Wishlist.name){
+                const response2 = await fetch('https://jomo-se-722e825d9259.herokuapp.com/api/entry/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        wishlistNum: data[0].wishlistNum,
+                        itemId: item.id,
+                    }),
+                });
+                console.log(response2.ok); //debugging person
+                console.log(data[0].wishlistNum);
+            }
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Item Added',
+                text: `${item.name} has been added to your wishlist!`,
+                timer: 1000,
+                showConfirmButton: false,
+            });
+
+        }catch(error){
+            console.log(error);
+        }
+
     };
 
     const checkForUser = () =>{
-        if(user === {}){
+        if(userKey === {} || userKey === undefined){
             Swal.fire({
                 icon: 'error',
                 title: 'No user Found',
@@ -58,11 +88,11 @@ function Explore() {
             });
             navigate('/');
         }
-
     };
 
     useEffect(() => {
         const fetchItems = async () => {
+
             try {
 
                 const response = await fetch('https://jomo-se-722e825d9259.herokuapp.com/api/item/get-all');
@@ -82,22 +112,27 @@ function Explore() {
     useEffect(() => {
         checkForUser();
         const fetchWishlist = async () => {
+            console.log("geff");
+            console.log(userKey);
             try {
 
-                const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${user}`);
+                const response = await fetch(`https://jomo-se-722e825d9259.herokuapp.com/api/wishlist/get-users/${userKey}`);
 
+                var data = null;
                 if(response.ok){
-                    const data = await response.json();
+                    data = await response.json();
+                }
 
-                    console.log(response);
-
+                console.log("data: ", data);
+                if(data != null  && data.length > 0){
                     setWishlist(data[0]);
                 }else{
+                    // console.log("hererere: ",response);
                     Swal.fire({
                         icon: 'error',
                         title: 'No Wishlist Found',
                         text: `Please create wishlist`,
-                        timer: 1500,
+                        timer: 2000,
                         showConfirmButton: false,
                     });
                     navigate('/homepage', { state: { user: user} });

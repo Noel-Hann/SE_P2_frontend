@@ -26,7 +26,8 @@ function UpdateWishlist({ userKey, children, className }) {
                 const wishlist = wishlistData[0];
                 setWishlistName(wishlist.name);
                 setWishlistDescription(wishlist.description);
-                setWishlistNum(wishlist.wishlistNum); 
+                setWishlistNum(wishlist.wishlistNum);
+                console.log("User ID:", userKey);
                 console.log("Wishlist Num:", wishlist.wishlistNum);
             } else {
                 navigate('/homepage');
