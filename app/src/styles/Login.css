@@ -60,6 +60,12 @@ body {
     box-sizing: border-box;
 }
 
+.login-check {
+    width: 10%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 .login-button {
     width: 100%;
     padding: 15px 20px;

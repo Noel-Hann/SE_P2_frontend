@@ -11,7 +11,6 @@ import {useLocation, useNavigate} from "react-router-dom";
 function Admin() {
     const navigate = useNavigate();
     const [snowflakes, setSnowflakes] = useState([]);
-    const [items, setitems] = useState([]);
     const [users, setUsers] = useState([]);
 
     const location = useLocation();

@@ -14,7 +14,9 @@ const icons = new Map([
     ["toys", "https://cdn-icons-png.flaticon.com/512/2242/2242585.png"],
     ["jewelry", "https://cdn-icons-png.flaticon.com/512/3851/3851092.png"],
     ["home", "https://cdn3.iconfinder.com/data/icons/colorline-christmas/64/christmas_winter_home_house_icon-512.png"],
-    ["pets", "https://cdn-icons-png.flaticon.com/512/3826/3826862.png"]
+    ["pets", "https://cdn-icons-png.flaticon.com/512/3826/3826862.png"],
+    ["decorations","https://cdn4.iconfinder.com/data/icons/holidays-culture-color/128/christmas-ornament-red-512.png"],
+    ["collectibles","https://cdn-icons-png.flaticon.com/512/2507/2507035.png"]
 ]);
 
 function Friends() {
@@ -24,7 +26,6 @@ function Friends() {
     const [friendWishlist, setFriendWishlist] = useState([]);
     const [searchFriend, setSearchFriend] = useState('');
     const searchFriendRef = useRef(null);
-
     const location = useLocation();
 
 

@@ -1,15 +1,16 @@
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
 import { useState } from 'react';
+
 import Swal from 'sweetalert2';
-import '../styles/CreateWishlist.css';
 import bcrypt from "bcryptjs";
 
+import '../styles/CreateWishlist.css';
 
-function UpdateUser({ children, userKey,user = "" }) {
+function UpdateUser({ children, userKey,user = "" , unHashedPassword = ""}) {
     const [isOpen, setIsOpen] = useState(false);
 
     const [username, setUsername] = useState(user.username);
-    const [userPassword,setUserPassword] = useState("");
+    const [userPassword, setUserPassword] = useState(unHashedPassword);
 
 
     const handleSave = async () => {
@@ -24,7 +25,6 @@ function UpdateUser({ children, userKey,user = "" }) {
             return;
         }
 
-
         const salt = await bcrypt.genSalt(10);
         var hashedPassword;
 
@@ -34,7 +34,6 @@ function UpdateUser({ children, userKey,user = "" }) {
             hashedPassword = await bcrypt.hash(userPassword, salt);
         }
 
-        //user object to send to the API
         const userItem = {
             username: username,
             password: hashedPassword,
@@ -125,14 +124,13 @@ function UpdateUser({ children, userKey,user = "" }) {
                                 />
                             </div>
 
-                            {/* user password input */}
                             <div className="mb-4">
                                 <label htmlFor="wishlist-description" className="block text-sm font-medium text-gray-700">
-                                    password
+                                    password (leave as is for no change)
                                 </label>
-                                <textarea
-                                    id="wishlist-description"
-                                    name="wishlist-description"
+                                <input
+                                    name="wishlist-name"
+                                    type="text"
                                     className="input-field"
                                     placeholder="Enter User password"
                                     value={userPassword}
@@ -140,7 +138,6 @@ function UpdateUser({ children, userKey,user = "" }) {
                                 />
                             </div>
 
-                            {/* buttons */}
                             <div className="wishlist-button-group">
                                 <button type="button" className="btn btn-primary" onClick={handleSave}>
                                     Save
