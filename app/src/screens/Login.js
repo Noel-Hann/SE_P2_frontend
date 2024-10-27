@@ -80,7 +80,10 @@ function Login() {
                     success();
                     console.log("User ID to be passed to Homepage:", data.id);
                     localStorage.setItem("userKey", data.id);
-                    console.log("password: ", password);
+                    localStorage.setItem("user",JSON.stringify(data));
+                    localStorage.setItem("unHashed",password);
+                    console.log("password: ", data.admin);
+
                     navigate('/homepage', { state: { userID: data.id, user: data, unHashed:password} }); // Navigate to homepage
                 } else {
                     console.log('Incorrect password');

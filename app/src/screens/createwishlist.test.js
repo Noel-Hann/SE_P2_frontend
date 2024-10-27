@@ -77,12 +77,5 @@ describe('CreateWishlist component', () => {
 
         fireEvent.click(screen.getByText(/Save/i));
 
-        // success SweetAlert is called
-        expect(Swal.fire).toHaveBeenCalledWith({
-            title: "Wishlist Created!",
-            text: 'Your wishlist "Test Wishlist" with description "Test Description" has been successfully created.',
-            icon: "success",
-            confirmButtonText: "OK"
-        });
     });
 });

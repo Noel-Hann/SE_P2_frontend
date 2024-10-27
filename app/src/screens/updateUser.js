@@ -108,13 +108,13 @@ function UpdateUser({ children, userKey,user = "" , unHashedPassword = ""}) {
                         <form>
 
                             <div className="mb-4">
-                                <label htmlFor="wishlist-name" className="block text-sm font-medium text-gray-700">
+                                <label htmlFor="user-name" className="block text-sm font-medium text-gray-700">
                                     User Name
                                 </label>
 
                                 <input
-                                    id="wishlist-name"
-                                    name="wishlist-name"
+                                    id="user-name"
+                                    name="user-name"
                                     type="text"
                                     required
                                     className="input-field"
@@ -125,11 +125,12 @@ function UpdateUser({ children, userKey,user = "" , unHashedPassword = ""}) {
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="wishlist-description" className="block text-sm font-medium text-gray-700">
+                                <label htmlFor="user-password" className="block text-sm font-medium text-gray-700">
                                     password (leave as is for no change)
                                 </label>
                                 <input
-                                    name="wishlist-name"
+                                    id = "user-password"
+                                    name="user-password"
                                     type="text"
                                     className="input-field"
                                     placeholder="Enter User password"
