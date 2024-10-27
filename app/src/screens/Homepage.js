@@ -17,7 +17,10 @@ function Homepage() {
     const navigate = useNavigate();
     const [snowflakes, setSnowflakes] = useState([]);
     const location = useLocation();
-    const { userID, user, unHashed} = location.state || {};
+    var { userID, user, unHashed} = location.state || {};
+    user = JSON.parse(localStorage.getItem("user")) || {};
+    unHashed = localStorage.getItem("unHashed") || {};
+    userID = localStorage.getItem("userKey") || {};
     const userKey = userID || localStorage.getItem("userKey");
 
     useEffect(() => {
@@ -43,17 +46,30 @@ function Homepage() {
     }
 
     const handleAdmin = () => {
+        try{
+            console.log("user:",user.username);
+            console.log(userID);
+            console.log(unHashed)
+            if ((user.admin) || (userKey === 6)) {
 
-        if (user && user.isAdmin) {
-
-            navigate('/admin', { state: { user } });
-        } else {
+                navigate('/admin', { state: { user } });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "YOU SHALL NOT PASS",
+                    text: "You are not an Admin"
+                });
+            }
+        }catch (error){
+            console.log(error)
             Swal.fire({
                 icon: "error",
-                title: "YOU SHALL NOT PASS",
-                text: "You are not an Admin"
-        });
+                title: "Oops...",
+                text: "something happened"
+            });
         }
+
+
     };
 
     return (

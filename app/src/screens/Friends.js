@@ -5,7 +5,6 @@ import '../styles/Friends.css';
 import Snowflake from '../Snowflake';
 import christmasTree from '../assets/christmasTree.webp';
 import Swal from 'sweetalert2';
-import {useLocation, useNavigate} from "react-router-dom";
 
 const icons = new Map([
     ["electronics", "https://cdn-icons-png.flaticon.com/512/13114/13114437.png"],
@@ -20,13 +19,11 @@ const icons = new Map([
 ]);
 
 function Friends() {
-    const navigate = useNavigate();
     const [snowflakes, setSnowflakes] = useState([]);
     const [items, setitems] = useState([]);
     const [friendWishlist, setFriendWishlist] = useState([]);
     const [searchFriend, setSearchFriend] = useState('');
     const searchFriendRef = useRef(null);
-    const location = useLocation();
 
 
     const showitemDescription = (item) => {
@@ -41,7 +38,6 @@ function Friends() {
         });
     };
 
-    // Generate snowflakes for visual effects
     useEffect(() => {
         const interval = setInterval(() => {
             setSnowflakes((prevSnowflakes) => [
@@ -71,6 +67,7 @@ function Friends() {
                             text: "Friend does not exist!"
                         });
                         setitems([]);
+                        setFriendWishlist({name:"no friend selected", description:" null"});
                         return;
                     }
 
@@ -80,6 +77,7 @@ function Friends() {
                         title: "Fail",
                         text: "Friend does not exist!"
                     });
+                    setFriendWishlist({name:"no friend selected", description:" null"});
                     setitems([]);
                     return;
                 }
@@ -159,10 +157,10 @@ function Friends() {
             }
 
         }
-        setFriendList()
+        setFriendList();
     },[searchFriend]);
 
-    const handleSearchChange = (event) => {
+    const handleSearchChange = () => {
 
         setSearchFriend(searchFriendRef.current.value);
     };
@@ -173,7 +171,7 @@ function Friends() {
             <div className="explore-card">
                 <h1 className="explore-header">
                     <img src={christmasTree} alt="Tree" style={{ width: '30px', height: '30px', marginRight: '8px' }} />
-                    View Friends Wishlist
+                    <div> View Friends Wishlist </div>
                     <img src={christmasTree} alt="Tree" style={{ width: '30px', height: '30px', marginLeft: '8px' }} />
                 </h1>
 
@@ -182,7 +180,7 @@ function Friends() {
                         <div className="search-innerCard">
                             <div className="search-container">
                                 <div className="Icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 23 23" fill="none" stroke="#657789" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 23 23" fill="none" stroke="#657789" className="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                                 </div>
                                 <div className="InputContainer">
                                     <input className="input-search" ref={searchFriendRef} placeholder="Search by Username"/>
@@ -216,11 +214,11 @@ function Friends() {
                 </div>
 
                 <div className="description-container">
-                    <img className="description-imageL"  src="https://cdn.creazilla.com/icons/7912022/christmas-icon-md.png"/>
+                    <img className="description-imageL" alt="img" src="https://cdn.creazilla.com/icons/7912022/christmas-icon-md.png"/>
                     <div className="description-card ">
                         <h1 className="friend-description">Description: {friendWishlist.description}</h1>
                     </div>
-                    <img className="description-imageR"  src="https://cdn.creazilla.com/icons/7912022/christmas-icon-md.png"/>
+                    <img className="description-imageR" alt="img" src="https://cdn.creazilla.com/icons/7912022/christmas-icon-md.png"/>
 
                 </div>
 
