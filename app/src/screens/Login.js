@@ -83,6 +83,7 @@ function Login() {
                     localStorage.setItem("user",JSON.stringify(data));
                     localStorage.setItem("unHashed",password);
                     console.log("password: ", data.admin);
+
                     navigate('/homepage', { state: { userID: data.id, user: data, unHashed:password} }); // Navigate to homepage
                 } else {
                     console.log('Incorrect password');

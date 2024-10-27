@@ -25,7 +25,6 @@ function Friends() {
     const [searchFriend, setSearchFriend] = useState('');
     const searchFriendRef = useRef(null);
 
-
     const showitemDescription = (item) => {
         Swal.fire({
             title: item.name,

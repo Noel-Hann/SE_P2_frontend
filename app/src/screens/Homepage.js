@@ -15,14 +15,17 @@ import christmasTree from '../assets/christmasTree.webp'
 
 function Homepage() {
     const navigate = useNavigate();
+    // state for storing snowflake animation and retrieving user info
     const [snowflakes, setSnowflakes] = useState([]);
     const location = useLocation();
     var { userID, user, unHashed} = location.state || {};
     user = JSON.parse(localStorage.getItem("user")) || {};
     unHashed = localStorage.getItem("unHashed") || {};
     userID = localStorage.getItem("userKey") || {};
+  
     const userKey = userID || localStorage.getItem("userKey");
 
+    // create snowflake animation when component mounts
     useEffect(() => {
         const interval = setInterval(() => {
             setSnowflakes((prevSnowflakes) => [
@@ -36,6 +39,8 @@ function Homepage() {
         return () => clearInterval(interval);
     }, []);
 
+
+    // check for a logged in user; if not found, redirect to login
     if (userID === null) {
         Swal.fire({
             icon: "error",
@@ -45,6 +50,7 @@ function Homepage() {
         navigate("/")
     }
 
+    // handle navigation for admin access based on user's role
     const handleAdmin = () => {
         try{
             console.log("user:",user.username);
@@ -72,6 +78,7 @@ function Homepage() {
 
     };
 
+     // render main homepage structure with options for wishlist creation, update, and exploration
     return (
         <div className="homepage-container">
             <div className="snowflake-container">{snowflakes}</div>
